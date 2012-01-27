@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>es.anovagroup.moviles.modulo4</groupId>
+	<artifactId>cubojni</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>apk</packaging>
+	<name>Cubo JNI</name>
+	<description>Un ejemplo de OpenGL y JNI para Android</description>
+	<organization>
+		<name>Anova IT Consulting</name>
+		<url>http://www.anovagroup.es</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>Jorge Rodríguez</name>
+			<email>jorge.rodriguez@anovagroup.es</email>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>2.2.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<sdk>
+						<platform>15</platform>
+						<path>C:/Android/android-sdk</path>
+					</sdk>
+					<ndk>
+						<path>C:/Android/android-ndk-r7</path>
+					</ndk>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>ndk-build</goal>
+						</goals>
+						<configuration>
+							<clearNativeArtifacts>false</clearNativeArtifacts>
+							<attachNativeArtifacts>true</attachNativeArtifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<version>1.0-alpha-7</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>javah</goal>
+						</goals>
+						<configuration>
+							<javahOutputDirectory>jni/include</javahOutputDirectory>
+							<javahClassNames>
+								<javahClassName>es.anovagroup.moviles.modulo4.cubojni.jni.Natives</javahClassName>
+							</javahClassNames>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+				<executions>
+				<execution>
+					<phase>validate</phase>
+					<goals>
+						<goal>compile</goal>
+					</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
